@@ -1,0 +1,11 @@
+main {
+	position: static;
+	margin-left: 200px;
+}
+
+.note {
+	border: 1px solid black;
+	width: 70%;
+	margin: 10px;
+	padding: 10px;
+}
