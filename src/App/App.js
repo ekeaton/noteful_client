@@ -7,6 +7,8 @@ import HomePage from '../HomePage/HomePage';
 import NotePage from '../NotePage/NotePage'
 import './app.css';
 import ApiContext from '../ApiContext';
+import AddFolder from '../AddFolder/AddFolder'
+import AddNote from '../AddNote/AddNote'
 
 class App extends Component {
   state = {
@@ -35,17 +37,34 @@ class App extends Component {
     	this.setState({
       	notes: this.state.notes.filter(note => note.id !== noteId)
    	 })
-  	}
+    }
+    
+    handleAddFolder= folder => {
+        this.setState({
+          folders: [
+            ...this.state.folders,
+            folder
+          ]
+        })
+    }
 
-
-
-
+    handleAddNote = note => {
+      this.setState({
+        notes: [
+          ...this.state.notes,
+          note
+        ]
+      })
+    }
+  
 
   render() {
     const value = {
 			notes: this.state.notes,
 			folders: this.state.folders,		
-			deleteNote: this.handleDeleteNote,
+      deleteNote: this.handleDeleteNote,
+      addFolder: this.handleAddFolder,
+      addNote: this.handleAddNote
 		
 	
 		}
@@ -65,9 +84,20 @@ class App extends Component {
           />
 
           <Route
+            path="/add-folder"
+            component={AddFolder}   
+           />
+         
+
+          <Route
             path="/folder/:activeFolderId"
             component={HomePage}
             />
+
+            <Route
+              path="/add-note"
+              component={AddNote}
+              />
 
             <Route 
               path="/note/:activeNoteId"

@@ -4,6 +4,7 @@ import ApiContext from '../ApiContext'
 import config from '../Config'
 import Button from '../Button/Button'
 import PropTypes from 'prop-types'
+import NotesError from '../NotesError';
 import './main-page.css'
 
 
@@ -36,15 +37,16 @@ class Main extends React.Component {
 		  
 	noteHTML(note) {
 
-		let noteLink = "/note/" + note.id
-		let classname = "note"
+		const noteLink = "/note/" + note.id
+		let classname = 'note'
 		if (note.id === this.context.activeNote) {
 			classname = "note " + classname;
 		} 
-		return (<div className="note">
-				<h3> <Link to={noteLink}><div id={note.id}> {note.name}</div></Link></h3>
-				<p>Date Modified: {note.modified}</p>
-				<button onClick={this.handleClickDelete(note)}>Delete Note</button>
+		return (
+				<div className="note">
+				  <h3> <Link to={noteLink}><div id={note.id}> {note.name}</div></Link></h3>
+				  <p>Date Modified: {note.modified}</p>
+				    <button onClick={this.handleClickDelete(note)}>Delete Note</button>
 			</div>);
 
 	}
@@ -59,7 +61,10 @@ class Main extends React.Component {
 			
 		return(
 			<main>
+			<NotesError>
 				{notes}
+			</NotesError>
+
 				  <Button
 				     tag={Link}
 				     to='/add-note'
