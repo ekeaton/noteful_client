@@ -9,6 +9,8 @@ import './app.css';
 import ApiContext from '../ApiContext';
 import AddFolder from '../AddFolder/AddFolder'
 import AddNote from '../AddNote/AddNote'
+import FolderError from '../FolderError';
+import NotesError from '../NotesError';
 
 class App extends Component {
   state = {
@@ -82,7 +84,7 @@ class App extends Component {
             exact path="/"
             component={HomePage}
           />
-
+          <FolderError>
           <Route
             path="/add-folder"
             component={AddFolder}   
@@ -93,16 +95,19 @@ class App extends Component {
             path="/folder/:activeFolderId"
             component={HomePage}
             />
+            </FolderError>
 
-            <Route
-              path="/add-note"
-              component={AddNote}
+            <NotesError>
+              <Route
+               path="/add-note"
+               component={AddNote}
               />
 
             <Route 
               path="/note/:activeNoteId"
               component={NotePage}
               />
+          </NotesError>
         </main>
       </div>
       </Router>

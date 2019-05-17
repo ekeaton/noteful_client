@@ -4,7 +4,6 @@ import ApiContext from '../ApiContext'
 import config from '../Config'
 import Button from '../Button/Button'
 import PropTypes from 'prop-types'
-import NotesError from '../NotesError';
 import './main-page.css'
 
 
@@ -57,19 +56,16 @@ class Main extends React.Component {
 		if (this.props.activeFolder) {
 			folderNotes = this.context.notes.filter((notes) => notes.folderId === this.props.activeFolder);
 		}
-		var notes = folderNotes.map((note) => this.noteHTML(note))
+		const notes = folderNotes.map((note) => this.noteHTML(note))
 			
 		return(
 			<main>
-			<NotesError>
 				{notes}
-			</NotesError>
-
 				  <Button
 				     tag={Link}
 				     to='/add-note'
 				     type='button'
-				     className='add-folder-button'>
+				     className='add-note-button'>
 				    Add Note
 				     </Button>
 			</main>

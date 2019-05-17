@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { NavLink, Link } from "react-router-dom";
 import Button from '../Button/Button'
 import './side-bar.css';
-import FolderError from '../FolderError';
+
 
 
 
@@ -31,9 +31,9 @@ class Sidebar extends Component {
         return (
             <div className="sidebar">
                 <div className="folder-display">
-                 <FolderError>
+            
                     {folders}
-                 </FolderError>
+            
                 </div>
                 <Button
                   tag={Link}

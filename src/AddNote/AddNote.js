@@ -17,7 +17,7 @@ export default class AddNote extends Component {
           noteNameValid: false,
           formValid: false,
             validationMessages: {
-                noteName: '',
+                incorrectName: '',
              }
       }
   }
@@ -32,14 +32,14 @@ export default class AddNote extends Component {
 
     fieldValue = fieldValue.trim();
     if(fieldValue.length === 0) {
-      fieldErrors.noteName = 'Name is required';
+      fieldErrors.incorrectName = 'Name is required';
       hasError = true;
     } else {
       if (fieldValue.length < 3) {
-        fieldErrors.noteName = 'Name must be at least 3 characters long';
+        fieldErrors.incorrectName = 'Name must be at least 3 characters long';
         hasError = true;
       } else {
-        fieldErrors.noteName = '';
+        fieldErrors.incorrectName = '';
         hasError = false;
       }
     }
@@ -60,8 +60,8 @@ formValid() {
   handleSubmit = e => {
     e.preventDefault()
     const newNote = {
-      name: e.target['note-name'].value,
-      content: e.target['note-content'].value,
+      name: e.target['noteName'].value,
+      content: e.target['noteContent'].value,
       folderId: e.target['note-folder-id'].value,
       modified: new Date(),
     }
@@ -90,20 +90,22 @@ formValid() {
     const { folders=[] } = this.context
     return (
       <section className='AddNote'>
+
         <h2>Create a note</h2>
+
         <NoteForm onSubmit={this.handleSubmit}>
           <div className='field'>
             <label htmlFor='note-name-input'>
               Name
             </label>
-            <input type='text' id='note-name-input' name='note-name' onChange={e => this.updateNoteName(e.target.value)}/>
-            <ValidationError hasError={!this.state.noteNameValid} message={this.state.validationMessages.noteName}/>
+            <input type='text' id='note-name-input' name='noteName' onChange={e => this.updateNoteName(e.target.value)}/>
+            <ValidationError hasError={!this.state.noteNameValid} message={this.state.validationMessages.incorrectName}/>
           </div>
           <div className='field'>
             <label htmlFor='note-content-input'>
               Content
             </label>
-            <textarea id='note-content-input' name='note-content'/>
+            <textarea id='note-content-input' name='noteContent'/>
           </div>
           <div className='field'>
             <label htmlFor='note-folder-select'>
