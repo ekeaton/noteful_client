@@ -9,3 +9,11 @@ main {
 	margin: 10px;
 	padding: 10px;
 }
+
+.note-highlight {
+	background-color: #add8e6;
+}
+
+.add-note-button {
+	margin-right: 240px;
+}

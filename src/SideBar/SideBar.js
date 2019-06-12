@@ -8,7 +8,7 @@ import './side-bar.css';
 
 class Sidebar extends Component {
 
-    folderActive(folder) {
+    folderHTML(folder) {
         let folderLink ='/folder/' + folder.id;
         let hover ='folder';
         if (folder.id === this.props.activeFolder) {
@@ -26,7 +26,7 @@ class Sidebar extends Component {
             }
     render() {
         if (this.props.folders) {
-            let folders = this.props.folders.map((folder) => this.folderActive(folder))
+            let folders = this.props.folders.map((folder) => this.folderHTML(folder))
         
         return (
             <div className="sidebar">

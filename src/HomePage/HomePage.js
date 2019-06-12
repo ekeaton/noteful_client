@@ -18,7 +18,9 @@ class HomePage extends Component {
                     folders={this.context.folders} 
                     activeFolder={activeFolder}/>
              
-                <MainPage activeFolder={activeFolder}/>        
+                <MainPage 
+                activeFolder={activeFolder}
+                />        
             </div>
         )
     }

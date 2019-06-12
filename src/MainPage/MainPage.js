@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from "react-router";
 import { Link } from 'react-router-dom';
 import ApiContext from '../ApiContext'
 import config from '../Config'
@@ -7,45 +8,52 @@ import PropTypes from 'prop-types'
 import './main-page.css'
 
 
-class Main extends React.Component {
+class MainPage extends React.Component {
+	static defaultProps ={
+    onDeleteNote: () => {},
+	}
+	
 	static contextType = ApiContext
 
-	static defaultProps ={
-	  onDeleteNote: () => {},
-	  }
 
-	  handleClickDelete = (note) => (e) => {
-	  	e.preventDefault(); 
+	handleClickDelete = (note) => (e) => {
+		e.preventDefault(); 
 
-	    fetch(`${config.API_ENDPOINT}/notes/${note.id}`, {
-	      method: 'DELETE',
-	      headers: {
-	        'content-type': 'application/json'
-	      },
-	    })
-	      .then(res => {
-	        if (!res.ok) {return res.json().then(e => Promise.reject(e))}
-	        return res.json()
-	      })
-	      .then(() => {
-	        this.context.deleteNote(note.id)
-	         this.props.history.push(`/`)
-	      })
-	  }
+		fetch(`${config.API_ENDPOINT}/notes/${note.id}`, {
+			method: 'DELETE',
+			headers: {
+				'content-type': 'application/json'
+			},
+		})
+			.then(res => {
+				if (!res.ok) {return res.json().then(e => Promise.reject(e))}
+				return res.json()
+			})
+			.then(() => {
+				this.context.deleteNote(note.id)
+				 console.log(this.props.history.push(`/`))
+				 
+			})
+			.catch(error => {
+        console.error({ error })
+      })
+	}
+
 
 		  
 	noteHTML(note) {
 
-		const noteLink = "/note/" + note.id
-		let classname = 'note'
+		let noteLink = "/note/" + note.id
+		let hover = "note";
 		if (note.id === this.context.activeNote) {
-			classname = "note " + classname;
+			hover = "note-highlight " + hover;
 		} 
 		return (
-				<div className="note">
-				  <h3> <Link to={noteLink}><div id={note.id}> {note.name}</div></Link></h3>
-				  <p>Date Modified: {note.modified}</p>
-				    <button onClick={this.handleClickDelete(note)}>Delete Note</button>
+		
+			<div className={hover}>
+				<h3> <Link to={noteLink}><div id={note.id}> {note.name}</div></Link></h3>
+				<p>Date Modified: {note.modified}</p>
+				<button onClick={this.handleClickDelete(note)}>Delete Note</button>
 			</div>);
 
 	}
@@ -73,8 +81,8 @@ class Main extends React.Component {
 		}
 }
 
-Main.propTypes = {
+MainPage.propTypes = {
 	activeFolder: PropTypes.string
 }
 
-export default Main;
+export default withRouter(MainPage);

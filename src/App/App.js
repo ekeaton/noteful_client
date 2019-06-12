@@ -21,8 +21,8 @@ class App extends Component {
 
 	componentDidMount(){
 		Promise.all([
-			fetch(`${config.API_ENDPOINT}/notes`),
-			fetch(`${config.API_ENDPOINT}/folders`)
+			fetch(`${config.API_ENDPOINT}/api/notes`),
+			fetch(`${config.API_ENDPOINT}/api/folders`)
 		])
 		.then (([noteRes, folderRes]) => {
 			return Promise.all([
@@ -84,7 +84,7 @@ class App extends Component {
             exact path="/"
             component={HomePage}
           />
-          <FolderError>
+        <FolderError>
           <Route
             path="/add-folder"
             component={AddFolder}   
@@ -95,9 +95,9 @@ class App extends Component {
             path="/folder/:activeFolderId"
             component={HomePage}
             />
-            </FolderError>
+        </FolderError>
 
-            <NotesError>
+         <NotesError>   
               <Route
                path="/add-note"
                component={AddNote}
